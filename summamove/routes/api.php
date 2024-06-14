@@ -3,9 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MoveController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\AuthenticationController;
 
 Route::get('items/achievements', [MoveController::class, 'Achievementindex']);
 Route::get('items/achievements/{id}', [MoveController::class, 'Achievementid']);
@@ -18,12 +16,12 @@ Route::get('items/exercises/{id}', [MoveController::class, 'Exerciseid']);
 Route::get('items/users', [MoveController::class, 'Userindex']);
 Route::get('items/users/{id}', [MoveController::class, 'Userid']);
 
-Route::post('/register', [RegisteredUserController::class, 'register']);
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/register', [AuthenticationController::class, 'register']);
+Route::post('/login', [AuthenticationController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function ()
 {
     Route::get('profile', function(Request $request) { return auth()->user();});
-    Route::post('/logout', [AuthenticatedSessionController::class, 'logout']);
+    Route::post('/logout', [AuthenticationController::class, 'logout']);
 
     Route::post('items/achievements', [MoveController::class, 'Achievementtoevoegen']);
     Route::put('items/achievements/{id}', [MoveController::class, 'updateAchievement']);
