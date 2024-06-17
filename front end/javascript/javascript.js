@@ -5,6 +5,50 @@ const apiUsers = apiBasis + "users"
 const apiAchievementExercises = apiBasis + "achievements/exercises/"
 const apiAchievementUsers = apiBasis + "achievements/users/"
 
+async function deleteAchievement(id) {
+    try {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+
+        const response = await axios.delete(`${apiBasis}achievements/${id}`, config);
+
+        if (response.status === 200) {
+            alert('Achievement deleted successfully!');
+            // Optionally, update UI or reload data after deletion
+            laad(); // This will reload all data after deletion
+        } else {
+            alert('Failed to delete achievement.');
+        }
+    } catch (error) {
+        console.error('Error deleting achievement:', error);
+        alert('Error deleting achievement.');
+    }
+}
+
+async function deleteExercise(id) {
+    try {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+
+        const response = await axios.delete(`${apiBasis}exercises/${id}`, config);
+
+        if (response.status === 200) {
+            alert('Exercise deleted successfully!');
+            // Optionally, update UI or reload data after deletion
+            laad(); // This will reload all data after deletion
+        } else {
+            alert('Failed to delete exercise.');
+        }
+    } catch (error) {
+        console.error('Error deleting exercise:', error);
+        alert('Error deleting exercise.');
+    }
+}
+
 const laad = async () => 
 {
     console.log('Laad gegevens');
@@ -24,14 +68,14 @@ const laad = async () =>
     let exercisesInhoud = '';
     for (const el of exercises)
     {
-        exercisesInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.instructionEN}</td><td>${el.instructieNL}</td></tr>`;
+        exercisesInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.instructionEN}</td><td>${el.instructieNL}</td><td><button style="color: red;" onclick="deleteExercise(${el.id})">X</button></td><td style="color: aqua;">E</td></tr>`;
     }
     document.querySelector("#exercisesInhoud").innerHTML = exercisesInhoud;
 
     let achievementsInhoud = '';
     for (const el of achievements)
     {
-        achievementsInhoud += `<tr><td>${el.id}</td><td>${el.exerciseID}</td><td>${el.userID}</td><td>${el.datum}</td><td>${el.amount}</td></tr>`;
+        achievementsInhoud += `<tr><td>${el.id}</td><td>${el.exerciseID}</td><td>${el.userID}</td><td>${el.datum}</td><td>${el.amount}</td><td><button style="color: red;" onclick="deleteAchievement(${el.id})">X</button></td><td style="color: aqua;">E</td></tr>`;
     }
     document.querySelector("#achievementsInhoud").innerHTML = achievementsInhoud;
 }
