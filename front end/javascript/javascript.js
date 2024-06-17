@@ -5,6 +5,48 @@ const apiUsers = apiBasis + "users"
 const apiAchievementExercises = apiBasis + "achievements/exercises/"
 const apiAchievementUsers = apiBasis + "achievements/users/"
 
+async function AddExercise() {
+    const name = document.querySelector('#nameForm').value;
+    const instructionEN = document.querySelector('#instructionForm').value;
+    const instructieNL = document.querySelector('#instructieForm').value;
+
+    if (!name || !instructionEN || !instructieNL) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    const exerciseData = {
+        name: name,
+        instructionEN: instructionEN,
+        instructieNL: instructieNL
+    };
+
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/api/items/exercises', exerciseData, config);
+        if (response.status === 201) {
+            alert('Exercise added successfully!');
+            // Optionally, update UI or reload data after adding exercise
+            laad(); // Reloads all data after adding exercise
+            // Clear input fields after successful addition
+            document.querySelector('#nameForm').value = '';
+            document.querySelector('#instructionForm').value = '';
+            document.querySelector('#instructieForm').value = '';
+        } else {
+            alert('Failed to add exercise.');
+        }
+    } catch (error) {
+        console.error('Error adding exercise:', error);
+        alert('Error adding exercise.');
+    }
+}
+
 async function deleteAchievement(id) {
     try {
         const token = localStorage.getItem('token');
@@ -68,14 +110,14 @@ const laad = async () =>
     let exercisesInhoud = '';
     for (const el of exercises)
     {
-        exercisesInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.instructionEN}</td><td>${el.instructieNL}</td><td><button style="color: red;" onclick="deleteExercise(${el.id})">X</button></td><td style="color: aqua;">E</td></tr>`;
+        exercisesInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.instructionEN}</td><td>${el.instructieNL}</td><td><button style="color: red;" onclick="deleteExercise(${el.id})">X</button></td></tr>`;
     }
     document.querySelector("#exercisesInhoud").innerHTML = exercisesInhoud;
 
     let achievementsInhoud = '';
     for (const el of achievements)
     {
-        achievementsInhoud += `<tr><td>${el.id}</td><td>${el.exerciseID}</td><td>${el.userID}</td><td>${el.datum}</td><td>${el.amount}</td><td><button style="color: red;" onclick="deleteAchievement(${el.id})">X</button></td><td style="color: aqua;">E</td></tr>`;
+        achievementsInhoud += `<tr><td>${el.id}</td><td>${el.exerciseID}</td><td>${el.userID}</td><td>${el.datum}</td><td>${el.amount}</td><td><button style="color: red;" onclick="deleteAchievement(${el.id})">X</button></tr>`;
     }
     document.querySelector("#achievementsInhoud").innerHTML = achievementsInhoud;
 }
