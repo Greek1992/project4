@@ -91,6 +91,28 @@ async function deleteExercise(id) {
     }
 }
 
+async function deleteUser(id) {
+    try {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+
+        const response = await axios.delete(`${apiBasis}users/${id}`, config);
+
+        if (response.status === 200) {
+            alert('user deleted successfully!');
+            // Optionally, update UI or reload data after deletion
+            laad(); // This will reload all data after deletion
+        } else {
+            alert('Failed to delete user.');
+        }
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        alert('Error deleting user.');
+    }
+}
+
 const laad = async () => 
 {
     console.log('Laad gegevens');
@@ -103,7 +125,7 @@ const laad = async () =>
     let userInhoud = '';
     for (const el of users)
     {
-        userInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.role}</td><td>${el.email}</td></tr>`;
+        userInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.role}</td><td>${el.email}</td><td><button style="color: red;" onclick="deleteUser(${el.id})">X</button></td></tr>`;
     }
     document.querySelector("#userInhoud").innerHTML = userInhoud;
 

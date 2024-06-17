@@ -352,4 +352,41 @@ class MoveController extends Controller
             ], 400);
         }
     }
+
+    public function deleteUser(Request $request, $id)
+    {
+        try
+        {
+            // Find the reservation by ID
+            $user = User::findOrFail($id);
+
+            // Delete the reservation
+            $user->delete();
+
+            // Log the request
+            Log::info('user deleted', [
+                'ip' => $request->ip(),
+                'id' => $id,
+            ]);
+
+            // Return success response
+            return response()->json([
+                'success' => true,
+                'message' => 'user succesvol verwijderd',
+            ], 200);
+
+        }
+        catch (\Exception $e)
+        {
+            // Log the error
+            Log::error("user verwijderen fout", ['exception' => $e]);
+
+            // Return error response
+            return response()->json([
+                'success' => false,
+                'message' => 'Er is een fout opgetreden bij het verwijderen van de user',
+                'error' => $e->getMessage(),
+            ], 400);
+        }
+    }
 }
