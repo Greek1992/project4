@@ -24,11 +24,60 @@ class DatabaseSeeder extends Seeder
             'password' => 'adel123',
         ]);
 
-        Exercises::create([
-            'name' => 'Bench press',
-            'instructionEN' => 'Lie your back on an elevated position, hold a bar straight up above your chest',
-            'instructieNL' => 'Ga met je rug op een hoge positie, houw een staafobject boven je borst',
-        ]);
+        $exercises = [
+            [
+                'name' => 'Squat',
+                'instructionEN' => 'Squat instruction',
+                'instructieNL' => 'Squat instructie',
+            ],
+            [
+                'name' => 'Pushup',
+                'instructionEN' => 'Pushup instruction',
+                'instructieNL' => 'Pushup instructie',
+            ],
+            [
+                'name' => 'Dip',
+                'instructionEN' => 'Dip instruction',
+                'instructieNL' => 'Dip instructie',
+            ],
+            [
+                'name' => 'Plank',
+                'instructionEN' => 'Plank instruction',
+                'instructieNL' => 'Plank instructie',
+            ],
+            [
+                'name' => 'Paardentrap',
+                'instructionEN' => 'Paardentrap instruction',
+                'instructieNL' => 'Paardentrap instructie',
+            ],
+            [
+                'name' => 'Mountain climber',
+                'instructionEN' => 'Mountain climber instruction',
+                'instructieNL' => 'Mountain climber instructie',
+            ],
+            [
+                'name' => 'Burpee',
+                'instructionEN' => 'Burpee instruction',
+                'instructieNL' => 'Burpee instructie',
+            ],
+            [
+                'name' => 'Lunge',
+                'instructionEN' => 'Lunge instruction',
+                'instructieNL' => 'Lunge instructie',
+            ],
+            [
+                'name' => 'Wall sit',
+                'instructionEN' => 'Wall sit instruction',
+                'instructieNL' => 'Wall sit instructie',
+            ],
+            [
+                'name' => 'Crunch',
+                'instructionEN' => 'Crunch instruction',
+                'instructieNL' => 'Crunch instructie',
+            ],
+        ];
+
+        Exercises::insert($exercises);
 
         Achievements::create([
             'exerciseID' => '3',
@@ -36,7 +85,5 @@ class DatabaseSeeder extends Seeder
             'datum' => '2024-06-06',
             'amount' => '1',
         ]);
-
-
     }
 }
