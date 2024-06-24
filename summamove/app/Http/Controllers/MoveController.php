@@ -46,6 +46,29 @@ class MoveController extends Controller
         $content = ['success' => true,'data' => $data,];
         return response()->json($content, 200);
     }
+
+    public function AchievementUserexercise(Request $request, $userId, $moveId)
+    {
+
+        //$data = Achievements::join('exercises', 'achievements.exerciseID', '=', 'exercises.id')->where('achievements.exerciseID', $moveId)->where('achievements.userID', $userId)->get();
+        $move = Exercises::find($moveId);
+        $data = Achievements::all()->where('exerciseID', '=' ,$move->id)->where('userID', '=' ,$userId);
+
+        $temp = [];
+        foreach($data as $d)
+        {
+            array_push($temp, $d);
+
+        }
+
+        //$data->sortBy("userID");
+
+        //$data = $move->Achievements();
+        return $temp;
+
+        $content = ['success' => true,'data' => $data,];
+        return response()->json($content, 200);
+    }
     public function Achievementuser(Request $request, $id)
     {
         $data = Achievements::join('users', 'achievements.userID', '=', 'users.id')->where('achievements.userID', $id)->get();
@@ -141,7 +164,9 @@ class MoveController extends Controller
     }
     public function updateAchievement(Request $request, $id)
     {
+        //dd($request);
         // Validate the request
+        //dd($request);
         $validatedData = $request->validate([
             'exerciseID' => 'required|integer',
             'userID' => 'required|integer',
@@ -151,6 +176,8 @@ class MoveController extends Controller
 
         try
         {
+
+
             // Find the reservation by ID
             $achievement = Achievements::findOrFail($id);
 
@@ -192,9 +219,10 @@ class MoveController extends Controller
     {
         try
         {
+
             // Find the reservation by ID
             $achievement = Achievements::findOrFail($id);
-
+           // dd($achievement);
             // Delete the reservation
             $achievement->delete();
 

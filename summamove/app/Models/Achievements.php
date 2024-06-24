@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Achievements extends Model
 {
@@ -22,4 +23,9 @@ class Achievements extends Model
         'datum',
         'amount',
     ];
+
+    public function Exercise(): BelongsTo
+    {
+        return $this->belongsTo(Exercises::class, 'exerciseID');
+    }
 }
