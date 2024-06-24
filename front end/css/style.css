@@ -3,3 +3,11 @@ body  {width : 50%; max-width:500px; margin: auto; margin-top:50px; background-c
 header,footer {background-color: rgb(255, 80, 80); text-align-last: center; border-radius: 15px;}
 th,td {text-align : left; padding-right:10px;}
 .tabellen {display: flex; flex-direction: column;}
+
+#toggleButton {
+    margin: 20px;
+}
+
+#formContainer {
+    display: none;
+}

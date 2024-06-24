@@ -5,6 +5,21 @@ const apiUsers = apiBasis + "users"
 const apiAchievementExercises = apiBasis + "achievements/exercises/"
 const apiAchievementUsers = apiBasis + "achievements/users/"
 
+let loggedIn = false; // Variable to track login status
+
+function toggleForm() {
+    var formContainer = document.getElementById("formContainer");
+    var toggleButton = document.getElementById("toggleButton");
+
+    if (formContainer.style.display === "none" || formContainer.style.display === "") {
+        formContainer.style.display = "block";
+        toggleButton.textContent = "Hide Forms";
+    } else {
+        formContainer.style.display = "none";
+        toggleButton.textContent = "Show Forms";
+    }
+}
+
 async function AddExercise() {
     const name = document.querySelector('#nameForm').value;
     const instructionEN = document.querySelector('#instructionForm').value;
@@ -125,24 +140,27 @@ const laad = async () =>
     let userInhoud = '';
     for (const el of users)
     {
-        userInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.role}</td><td>${el.email}</td><td><button style="color: red;" onclick="deleteUser(${el.id})">X</button></td></tr>`;
+        userInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.role}</td><td>${el.email}</td><td><button class="deleteButton" style="color: red; display: none;" onclick="deleteUser(${el.id})">X</button></td></tr>`;
     }
     document.querySelector("#userInhoud").innerHTML = userInhoud;
 
     let exercisesInhoud = '';
     for (const el of exercises)
     {
-        exercisesInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.instructionEN}</td><td>${el.instructieNL}</td><td><button style="color: red;" onclick="deleteExercise(${el.id})">X</button></td></tr>`;
+        exercisesInhoud += `<tr><td>${el.id}</td><td>${el.name}</td><td>${el.instructionEN}</td><td>${el.instructieNL}</td><td><button class="deleteButton" style="color: red; display: none;" onclick="deleteExercise(${el.id})">X</button></td></tr>`;
     }
     document.querySelector("#exercisesInhoud").innerHTML = exercisesInhoud;
 
     let achievementsInhoud = '';
     for (const el of achievements)
     {
-        achievementsInhoud += `<tr><td>${el.id}</td><td>${el.exerciseID}</td><td>${el.userID}</td><td>${el.datum}</td><td>${el.amount}</td><td><button style="color: red;" onclick="deleteAchievement(${el.id})">X</button></tr>`;
+        achievementsInhoud += `<tr><td>${el.id}</td><td>${el.exerciseID}</td><td>${el.userID}</td><td>${el.datum}</td><td>${el.amount}</td><td><button class="deleteButton" style="color: red; display: none;" onclick="deleteAchievement(${el.id})">X</button></tr>`;
     }
     document.querySelector("#achievementsInhoud").innerHTML = achievementsInhoud;
+
+    updateUI();
 }
+
 
 async function login() {
     const email = document.querySelector('#loginEmail').value;
@@ -161,7 +179,8 @@ async function login() {
             localStorage.setItem('token', response.data.access_token);
             console.log('Token:', response.data.access_token);
             alert('Login successful!');
-            document.getElementById('logoutButton').style.display = 'block';
+            loggedIn = true;
+            updateUI();
         } else {
             alert('Login failed.');
         }
@@ -206,9 +225,34 @@ async function register() {
     }
 }
 
-function logout() 
-{
+function logout() {
     localStorage.removeItem('token');
     alert('Logged out successfully!');
+    loggedIn = false;
+    updateUI();
     window.location.href = 'eindopdrachtCRUD.html';
 }
+
+function updateUI() {
+    const logoutButton = document.getElementById('logoutButton');
+    const exerciseForm = document.getElementById('exerciseForm');
+    const deleteButton = document.getElementsByClassName('deleteButton');
+
+    if (loggedIn) {
+        logoutButton.style.display = 'block';
+        exerciseForm.style.display = 'block';
+        for(var i = 0; i < deleteButton.length; i++)
+            {
+                deleteButton[i].style.display = 'block';
+            }
+    } else {
+        logoutButton.style.display = 'none';
+        exerciseForm.style.display = 'none';
+        for(var i = 0; i < deleteButton.length; i++)
+            {
+                deleteButton[i].style.display = 'none';
+            }
+    }
+}
+
+window.onload = laad;
