@@ -18,35 +18,73 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'adel',
+            'email' => 'adel@gmail.com',
             'role' => 'beheerder',
-            'password' => 'lollol',
+            'password' => 'adel123',
         ]);
 
         User::create([
-            'name' => 'x',
-            'email' => 'x@x.nl',
+            'name' => 'maik',
+            'email' => 'maik@gmail.com',
             'role' => 'beheerder',
-            'password' => 'geheim',
+            'password' => 'maik1234',
         ]);
 
+        $exercises = [
+            [
+                'name' => 'Squat',
+                'instructionEN' => 'Squat instruction',
+                'instructieNL' => 'Squat instructie',
+            ],
+            [
+                'name' => 'Pushup',
+                'instructionEN' => 'Pushup instruction',
+                'instructieNL' => 'Pushup instructie',
+            ],
+            [
+                'name' => 'Dip',
+                'instructionEN' => 'Dip instruction',
+                'instructieNL' => 'Dip instructie',
+            ],
+            [
+                'name' => 'Plank',
+                'instructionEN' => 'Plank instruction',
+                'instructieNL' => 'Plank instructie',
+            ],
+            [
+                'name' => 'Paardentrap',
+                'instructionEN' => 'Paardentrap instruction',
+                'instructieNL' => 'Paardentrap instructie',
+            ],
+            [
+                'name' => 'Mountain climber',
+                'instructionEN' => 'Mountain climber instruction',
+                'instructieNL' => 'Mountain climber instructie',
+            ],
+            [
+                'name' => 'Burpee',
+                'instructionEN' => 'Burpee instruction',
+                'instructieNL' => 'Burpee instructie',
+            ],
+            [
+                'name' => 'Lunge',
+                'instructionEN' => 'Lunge instruction',
+                'instructieNL' => 'Lunge instructie',
+            ],
+            [
+                'name' => 'Wall sit',
+                'instructionEN' => 'Wall sit instruction',
+                'instructieNL' => 'Wall sit instructie',
+            ],
+            [
+                'name' => 'Crunch',
+                'instructionEN' => 'Crunch instruction',
+                'instructieNL' => 'Crunch instructie',
+            ],
+        ];
 
-        Exercises::create([
-            'name' => 'Bench press',
-            'instructionEN' => 'Lie your back on an elevated position, hold a bar straight up above your chest',
-            'instructieNL' => 'Ga met je rug op een hoge positie, houw een staafobject boven je borst',
-        ]);
-        Exercises::create([
-            'name' => 'Bench press1',
-            'instructionEN' => '1',
-            'instructieNL' => '1',
-        ]);
-        Exercises::create([
-            'name' => 'Bench press2',
-            'instructionEN' => '2',
-            'instructieNL' => '2',
-        ]);
+        Exercises::insert($exercises);
 
         Achievements::create([
             'exerciseID' => '3',

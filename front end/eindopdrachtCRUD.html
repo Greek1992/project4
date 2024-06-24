@@ -1,0 +1,56 @@
+<!DOCTYPE html>                                    
+<html lang="nl">
+<head>
+	<title>Summa Move</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="css/style.css">
+	<script src="javascript/javascript.js" defer></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body onload="laad()">
+	<header>
+		<h1>Summa Move</h1>
+	</header>
+
+	<div id="loginForm">
+		<h2>Login</h2>
+		<input type="email" id="loginEmail" placeholder="Email">
+		<input type="password" id="loginPassword" placeholder="Password">
+		<button onclick="login()">Login</button>
+	</div>
+
+    <div id="registerForm">
+        <h2>Register</h2>
+        <input type="text" id="registerName" placeholder="Name">
+        <input type="email" id="registerEmail" placeholder="Email">
+        <input type="password" id="registerPassword" placeholder="Password">
+        <input type="password" id="registerConfirmPassword" placeholder="Confirm Password">
+        <button onclick="register()">Register</button>
+    </div>
+	<button id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
+	
+	<div class="tabellen">
+		<h1>Users</h1>
+		<table style="border: 1px black outset"><tr><th>id</th><th>name</th><th>role</th><th>email</th></tr>
+			<tbody id="userInhoud">
+		</table>
+		<br>
+		<h1>Exercises</h1>
+		<table style="border: 1px black outset"><tr><th>id</th><th>name</th><th>instructionEN</th><th>instructieNL</th></tr>
+			<tbody id="exercisesInhoud">
+		</table>
+		<div id="exerciseForm">
+			<input type="text" id="nameForm" placeholder="Name">
+			<input type="text" id="instructionForm" placeholder="instructionEN">
+			<input type="text" id="instructieForm" placeholder="instructieNL">
+			<button onclick="AddExercise()">Voeg exercise toe</button>
+		</div>
+		<br>
+		<h1>Achievements</h1>
+		<table style="border: 1px black outset"><tr><th>id</th><th>exerciseID</th><th>userID</th><th>datum</th><th>amount</th></tr>
+			<tbody id="achievementsInhoud">
+		</table>
+		<br>
+	</div>
+	<footer>&copy; 2021 ADEL</footer>
+</body>

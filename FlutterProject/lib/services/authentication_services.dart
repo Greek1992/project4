@@ -25,7 +25,7 @@ class AuthenticationServices {
   // api/register/
   static Future<bool> register (String email, String password, String name) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/register1'),
+      Uri.parse('$baseUrl/register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -43,7 +43,7 @@ class AuthenticationServices {
   // api/login/
   static Future<bool> login (String email, String password) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/login1'),
+      Uri.parse('$baseUrl/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
